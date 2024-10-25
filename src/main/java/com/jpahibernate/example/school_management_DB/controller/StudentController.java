@@ -29,5 +29,42 @@ public class StudentController {
         return response;
     }
 
+    @GetMapping("/getAll")
+     public List<Student> getall(){
+     List<Student> getallstudents = studentservice.getAllStudents();
+     return getallstudents;
+     }
+
+     //get the student details by student id
+    @GetMapping("/getbyid/{studentid}")
+    public  Student getByStudentId( @PathVariable("studentid") int studentId){
+   Student student = studentservice.getById(studentId);
+      return student;
+    }
+
+    //delete studentby id
+    @DeleteMapping("/deleteByid/{studentid}")
+    public String deleteById(@PathVariable("studentid")  int studentId){
+           String response = studentservice.deletebystudentid(studentId);
+           return response;
+
+    }
+
+    //let us update the student
+    //PUT = To update the whole details like a object
+    //PATCH = TO update specific field
+
+    @PutMapping("/updating/{studentid}")
+    public  String updateStudent(@PathVariable("studentid")  int studentId, @RequestBody Student newstudentrequest){
+         String response = studentservice.updateStudent(studentId, newstudentrequest);
+         return response;
+    }
+
+ //update student using patch function
+    @PatchMapping("/updatepatch/{studentid}")
+    public  String updateStudent( @PathVariable("studentid") int studentId, @RequestParam String gender){
+         String response = studentservice.updateUsingPath(studentId,gender);
+         return response;
+    }
 
 }
